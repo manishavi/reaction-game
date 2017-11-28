@@ -1,0 +1,100 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Discoveryvip JS Code Project</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+</head>
+<style type="text/css">
+    #clickme {
+        width: 100px;
+        height: 100px;
+        background: #e83e8c;
+        color: blue;
+        display: none;
+        position: relative;
+        top: 50px;
+        left: 100px;
+    }
+
+    #gameboard {
+        background: #cde;
+        border: 1px border-style color;
+        height: 600px;
+        width: 800px;
+    }
+
+    #scoreinfo {
+        text-align: center;
+        font-size: 25px;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div id="scoreinfo">Start Game</div>
+        <div id="startgame" class="btn btn-primary">Start</div>
+        <div id="gameboard">
+            <div id="clickme"></div>
+        </div>
+    </div>
+    <script>
+        // let time = new Date();
+        // console.log(time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds());
+        // console.log((new Date).toTimeString().slice(0,8));
+        console.log((new Date).toLocaleTimeString());
+
+        let starttime, endtime, waittime, gamestatus = false;
+        const startbtn = document.getElementById('startgame');
+        let clickme = document.getElementById('clickme');
+        let scoreinfo = document.getElementById('scoreinfo');
+
+        clickme.onclick = myFunctionHit;
+        startbtn.onclick = myFunction;
+
+        function myFunction() {
+            if (!gamestatus) {
+                console.log('Game started');
+                waittime = Math.random() * 2000 + 1000;
+                gamestatus = true;
+                setTimeout(function () {
+                    let top = Math.random() * 500;
+                    let left = Math.random() * 700;
+                    starttime = Date.now();
+                    // console.log(top);
+                    clickme.style.background = '#' + Math.random().toString(16).substr(-6);//randomColor(); 
+                    clickme.style.top = top + "px";
+                    clickme.style.left = left + "px";
+                    clickme.style.display = "block";
+                }, waittime);
+
+            }
+        }
+        function myFunctionHit() {
+            // console.log(this);
+            // this.innerHTML = "CLICKED";
+            gamestatus = false;
+            endtime = Date.now();
+            this.style.display = "none";
+            console.log('clicked');
+            console.log((new Date).toLocaleTimeString());
+            scoreinfo.innerHTML = (endtime - starttime) / 1000 + ' was your time';
+            myFunction();
+        }
+    // to get random color 
+    // function randomColor () {
+    //     let letters = '0123456789ABCDEF'.split('');
+    //     let myHex = '#';
+    //     for (let i = 0; i<6; i++){
+    //         myHex +=letters[Math.floor(Math.random()*16)];
+    //     }
+    //     return myHex;
+    // }
+    // console.log(randomColor());
+
+    </script>
+</body>
+
+</html>
